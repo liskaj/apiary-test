@@ -195,6 +195,223 @@ This call returns the list of users for a specific company.
 GET /api/user/v1/company_roster_ex.json
 > Content-Type: application/json
 < 200
+{
+    "user_roster": [
+        {
+            "user_id": "The user_id of the account",
+            "login_name": "The user login name for the account",
+            "first_name": "The users first name",
+            "last_name": "The users last name",
+            "company": "The name of the company",
+            "created_date": "The date user was created in BIM 360",
+            "num_sessions": 1,
+            "disabled": 0,
+            "deleted": 0,
+            "password_change_required": 0,
+            "user_type": "User Permissions: ADMIN=Customer controlled Glue Administrator | FULL=Full rights to read/write/delete project data | LIMITED=Cannot delete project data | REVIEWER=View specifically shared project data | PROJECTADMIN=Project Administrator for Glue Projects",
+            "autodesk_id": "The Autodesk ID unique identifier",
+            "email": "The email address for a user"
+        },
+        {
+            "user_id": "The user_id of the account",
+            "login_name": "The user login name for the account",
+            "first_name": "The users first name",
+            "last_name": "The users last name",
+            "company": "The name of the company",
+            "created_date": "The date user was created in BIM 360",
+            "num_sessions": 1,
+            "disabled": 0,
+            "deleted": 0,
+            "password_change_required": 0,
+            "user_type": "User Permissions: ADMIN=Customer controlled Glue Administrator | FULL=Full rights to read/write/delete project data | LIMITED=Cannot delete project data | REVIEWER=View specifically shared project data | PROJECTADMIN=Project Administrator for Glue Projects",
+            "autodesk_id": "The Autodesk ID unique identifier",
+            "email": "The email address for a user"
+        },
+    ],
+    "page": 1,
+    "page_size": 2,
+    "total_result_size": 2,
+    "more_pages": 0
+}
+
+
+This call will provide access for the profile image of an Autodesk ID user.
+GET /api/user/v1/icon
+< 200
+
+
+This call returns information of a given user, specified by user_id or login_name. If neither user_id or login_name are not specified, information about the authenticated account will be returned for standard BIM 360 Glue users.
+GET /api/user/v1/info.json
+> Content-Type: application/json
+< 200
+{
+    "user_id": "The user_id of the account",
+    "login_name": "The user login name for the account",
+    "first_name": "The users first name",
+    "last_name": "The users last name",
+    "company": "The name of the company",
+    "created_date": "The date user was created in BIM 360",
+    "num_sessions": 1,
+    "disabled": 0,
+    "deleted": 0,
+    "password_change_required": 0,
+    "user_type": "User Permissions: ADMIN=Customer controlled Glue Administrator | FULL=Full rights to read/write/delete project data | LIMITED=Cannot delete project data | REVIEWER=View specifically shared project data | PROJECTADMIN=Project Administrator for Glue Projects"
+}
+
+
+This call allows the user to mark a notice as being read or un-read.
+POST /api/user/v1/notice_read.json
+> Content-Type: application/json
+< 200
+{
+    "status": "The status (SUCCESS or FAIL) for the update of the notice",
+    "notice_id": "The notice ID"
+}
+
+
+This call returns notices for a given user, specified by proxy_user_id or proxy_login_name. If neither proxy_user_id or proxy_login_name are not specified, information about the authenticated account will be returned for standard BIM 360 Glue users.
+GET /api/user/v1/notices.json
+> Content-Type: application/json
+< 200
+{
+    "notice_list": [
+        {
+            "notice_sender": {
+                "user_id": "Glue user id of the user",
+                "login_name": "This is the login name for the user who sent the notice, received the notice or created the activity in Glue",
+                "first_name": "First name of the user",
+                "last_name": "Last name of the user",
+                "email": "User email address"
+            },
+            "notice_id": "The ID for this notice",
+            "notice_date": "The creation date for the Notice in the following format: YYYY-MM-DD hh:mm:ss.fff",
+            "notice_message": "The message sent with the the notice by the sending user",
+            "is_read": 0,
+            "project_id": "The ID for the project for this notice",
+            "project_name": "The name of the project for this notice",
+            "notice_actions": [
+                {
+                    "action_id": "The action identifier used with the Display Component to view this particular action",
+                    "project_id": "The Project identifier for the Action",
+                    "model_id": "The master Model identifier for the Action. If this ID is all ZEROS, then the model has been deleted from the system",
+                    "version_id":"The Model specific version identifier for the Action. If this ID is all ZEROS, then the model has been deleted from the system",
+                    "model_name": "The Model name for the Action",
+                    "subject": "A description of the action",
+                    "type": "A type identifier for the action (model, mergedmodel, view, markup, rfi, clashreport, attachment, animation, submittal, clashtestversion, clashtestdelete)",
+                    "type_object_id": "This is the identifier for the particular object type being described by this action. For example, the ID of a saved view",
+                    "type_object_name": "This is the name for the object specified by type_object_id",
+                    "created_by": "The login_name of the person generating the Action",
+                    "created_date": "The creation date for the Action in the following format: YYYY-MM-DD hh:mm:ss.fff"
+                },
+                {
+                    "action_id": "The action identifier used with the Display Component to view this particular action",
+                    "project_id": "The Project identifier for the Action",
+                    "model_id": "The master Model identifier for the Action. If this ID is all ZEROS, then the model has been deleted from the system",
+                    "version_id":"The Model specific version identifier for the Action. If this ID is all ZEROS, then the model has been deleted from the system",
+                    "model_name": "The Model name for the Action",
+                    "subject": "A description of the action",
+                    "type": "A type identifier for the action (model, mergedmodel, view, markup, rfi, clashreport, attachment, animation, submittal, clashtestversion, clashtestdelete)",
+                    "type_object_id": "This is the identifier for the particular object type being described by this action. For example, the ID of a saved view",
+                    "type_object_name": "This is the name for the object specified by type_object_id",
+                    "created_by": "The login_name of the person generating the Action",
+                    "created_date": "The creation date for the Action in the following format: YYYY-MM-DD hh:mm:ss.fff"
+                },
+            ],
+            "notice_recipients": [
+                {
+                    "user_id": "Glue user id of the user",
+                    "login_name": "This is the login name for the user who sent the notice, received the notice or created the activity in Glue",
+                    "first_name": "First name of the user",
+                    "last_name": "Last name of the user",
+                    "email": "User email address"
+                },
+                {
+                    "user_id": "Glue user id of the user",
+                    "login_name": "This is the login name for the user who sent the notice, received the notice or created the activity in Glue",
+                    "first_name": "First name of the user",
+                    "last_name": "Last name of the user",
+                    "email": "User email address"
+                },
+            ]
+        },
+        {
+            "notice_sender": {
+                "user_id": "Glue user id of the user",
+                "login_name": "This is the login name for the user who sent the notice, received the notice or created the activity in Glue",
+                "first_name": "First name of the user",
+                "last_name": "Last name of the user",
+                "email": "User email address"
+            },
+            "notice_id": "The ID for this notice",
+            "notice_date": "The creation date for the Notice in the following format: YYYY-MM-DD hh:mm:ss.fff",
+            "notice_message": "The message sent with the the notice by the sending user",
+            "is_read": 0,
+            "project_id": "The ID for the project for this notice",
+            "project_name": "The name of the project for this notice",
+            "notice_actions": [
+                {
+                    "action_id": "The action identifier used with the Display Component to view this particular action",
+                    "project_id": "The Project identifier for the Action",
+                    "model_id": "The master Model identifier for the Action. If this ID is all ZEROS, then the model has been deleted from the system",
+                    "version_id": "The Model specific version identifier for the Action. If this ID is all ZEROS, then the model has been deleted from the system",
+                    "model_name": "The Model name for the Action",
+                    "subject": "A description of the action",
+                    "type": "A type identifier for the action (model, mergedmodel, view, markup, rfi, clashreport, attachment, animation, submittal, clashtestversion, clashtestdelete)",
+                    "type_object_id": "This is the identifier for the particular object type being described by this action. For example, the ID of a saved view",
+                    "type_object_name": "This is the name for the object specified by type_object_id",
+                    "created_by": "The login_name of the person generating the Action",
+                    "created_date": "The creation date for the Action in the following format: YYYY-MM-DD hh:mm:ss.fff"
+                },
+                {
+                    "action_id": "The action identifier used with the Display Component to view this particular action",
+                    "project_id": "The Project identifier for the Action",
+                    "model_id": "The master Model identifier for the Action. If this ID is all ZEROS, then the model has been deleted from the system",
+                    "version_id": "The Model specific version identifier for the Action. If this ID is all ZEROS, then the model has been deleted from the system",
+                    "model_name": "The Model name for the Action",
+                    "subject": "A description of the action",
+                    "type": "A type identifier for the action (model, mergedmodel, view, markup, rfi, clashreport, attachment, animation, submittal, clashtestversion, clashtestdelete)",
+                    "type_object_id": "This is the identifier for the particular object type being described by this action. For example, the ID of a saved view",
+                    "type_object_name": "This is the name for the object specified by type_object_id",
+                    "created_by": "The login_name of the person generating the Action",
+                    "created_date": "The creation date for the Action in the following format: YYYY-MM-DD hh:mm:ss.fff"
+                }
+            ],
+            "notice_recipients": [
+                {
+                    "user_id": "Glue user id of the user",
+                    "login_name": "This is the login name for the user who sent the notice, received the notice or created the activity in Glue",
+                    "first_name": "First name of the user",
+                    "last_name": "Last name of the user",
+                    "email": "User email address"
+                },
+               {
+                    "user_id": "Glue user id of the user",
+                    "login_name": "This is the login name for the user who sent the notice, received the notice or created the activity in Glue",
+                    "first_name": "First name of the user",
+                    "last_name": "Last name of the user",
+                    "email": "User email address"
+                }
+            ]
+        }
+    ],
+    "page": 1,
+    "page_size": 2,
+    "total_result_size": 2,
+    "more_pages": 0
+}
+
+This call allows a user (or a Service Provider) to change the attributes of a BIM 360 Glue user account on the BIM 360 Glue Platform. Only non-empty sent attributes will be updated on the server.
+POST /api/user/v1/profile.json
+> Content-Type: application/json
+< 200
+{
+    "update_time": "The update time in GMT/UTC",
+    "user_id": "The user_id of the updated account",
+    "login_name_updated": 1,
+    "login_name_updated_error": "Any error/status message associated with a login_name update",
+    "email_updated": 0,
+    "email_updated_error": "Any error/status message associated with a email updates"
+}
 
 
 --
