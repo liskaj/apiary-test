@@ -778,6 +778,59 @@ GET /api/model/v1/info.json
 }
 
 
+This call returns a model list from the BIM 360 Glue Platform. By default, it returns all the models for a specific project, and can filter the result by exclude_folder, exclude_deleted.
+GET /api/model/v1/list.json
+> Content-Type: application/json
+< 200
+{
+    "model_list": [
+        {
+            "company_id": "The company identifier for this model",
+            "project_id": "The Project identifier for this model",
+            "model_id": "The model identifier for the model",
+            "model_version": 1,
+            "model_version_id": "The version identifier for this specific version of the model",
+            "model_name": "The name for the model",
+            "created_by": "The login_name of the creator of the model",
+            "created_date": "The date of model was created",
+            "modified_by": "The login_name of the last user to modify the model",
+            "modified_date": "Date of last modification",
+            "parent_folder_id": "The parent folder for the model",
+            "is_merged_model": 0,
+            "is_folder": 0,
+            "is_deleted": 0,
+            "metadata_version": 1,
+            "file_parsed_status": 1,
+            "file_units": "",
+            "published": 0
+        },
+        {
+            "company_id": "The company identifier for this model",
+            "project_id": "The Project identifier for this model",
+            "model_id": "The model identifier for the model",
+            "model_version": 1,
+            "model_version_id": "The version identifier for this specific version of the model",
+            "model_name": "The name for the model",
+            "created_by": "The login_name of the creator of the model",
+            "created_date": "The date of model was created",
+            "modified_by": "The login_name of the last user to modify the model",
+            "modified_date": "Date of last modification",
+            "parent_folder_id": "The parent folder for the model",
+            "is_merged_model": 0,
+            "is_folder": 0,
+            "is_deleted": 0,
+            "metadata_version": 1,
+            "file_parsed_status": 1,
+            "file_units": "",
+            "published": 0
+        }
+    ],
+    "page": 1,
+    "page_size": 2,
+    "total_result_size": 2,
+    "more_pages": 0
+}
+
 --
 User Service
 This is used for the use and maintenance of BIM 360 Glue user information.
