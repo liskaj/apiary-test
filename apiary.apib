@@ -1,0 +1,248 @@
+HOST: https://b4.autodesk.com
+
+--- BIM 360 Glue ---
+---
+The Web Services API is a data access API that will allow third party developers to access to the various
+data objects within the BIM 360 Glue Platform.
+These data objects would include types such as Users, Projects, Models, etc. With this API, a developer
+could easily integrate external applications such as project management systems, accounting systems or
+custom developed solutions.
+---
+
+--
+Security Service
+This is responsible for the security management (authentication, creation, etc.) of BIM 360 Glue user accounts.
+--
+
+
+Activation of the invitation.
+POST /api/security/v1/activate.json
+> Content-Type: application/json
+< 200
+{
+    "user_id": "057749b3-a472-4f63-a00e-9d4c17331cd3"
+}
+
+
+`Service Provider Access ONLY`
+
+This call disables a user from accessing a user account.
+###Parameters
+- format : The format for the service call response
+- company_id: The company identifier for the BIM 360 Glue Platform
+- api_key: The API key assigned by Autodesk for the API developer
+- auth_token: The authentication token assigned to the user during the login process. `NOT REQUIRED FOR A SERVICE PROVIDER API KEY`
+- timestamp: The API key assigned by Autodesk for the API developer
+- sig: The MD5 generated hash of which insures the identity of the API developer. To build the signature, concatenate the following information (api_key + api_secret + timestamp) and then generate the MD5 hash for the string.
+- proxy_user_id: This is the user identifier string of the user account you wish to update. Either proxy_user_id or proxy_login_name must be valid to perform this operation.
+- proxy_login_name: This is the user login name for the user you wish to update. Either proxy_user_id or proxy_login_name must be valid to perform this operation.
+- pretty: Return the XML/JSON in a human readable format
+- no_http_status: If 1, then an HTTP Status code of 200 will be returned for ALL responses and any errors will be returned in the text/plain body on a single line in the format:
+ERROR;error_number;error_message.
+POST /api/security/v1/disable.json
+> Content-Type: application/json
+< 200
+{
+    "update_time": "2012-05-01 23:56:01",
+    "user_id": "057749b3-a472-4f63-a00e-9d4c17331cd3"
+}
+
+
+`Service Provider Access ONLY`
+
+This call enables a user and allows them to access their user account.
+POST /api/security/v1/enable.json
+> Content-Type: application/json
+< 200
+{
+    "update_time": "2012-05-01 23:56:01",
+    "user_id": "057749b3-a472-4f63-a00e-9d4c17331cd3"
+}
+
+
+`Service Provider Access ONLY`
+
+This call allows a Service Provider enabled key to invite a new user account to a company roster in the BIM 360 Glue Platform.
+POST /api/security/v1/invite.json
+< 200
+{
+    "user_id": "The user_id of the new account",
+    "invitation_id": "The invitation_id of the new account",
+    "invitation_url": "The URL user would need to activate his account",
+    "company": "The name of the company",
+    "created_date": "The date user was linked in BIM 360",
+    "user_type": "User Permissions: ADMIN=Customer controlled Glue Administrator | FULL=Full rights to read/write/delete project data | LIMITED=Cannot delete project data | REVIEWER=View specifically shared project data | PROJECTADMIN=Project Administrator for Glue Projects"
+}
+
+
+`Service Provider Access ONLY`
+
+
+This call allows a Service Provider enabled key to resend invitation email to previously created but not activated user account in the BIM 360 Glue Platform.
+POST /api/security/v1/invite_repeat.json
+> Content-Type: application/json
+< 200
+{
+    "user_id": "The user_id of the new account",
+    "invitation_id": "The invitation_id of the new account",
+    "invitation_url": "The URL user would need to activate his account",
+    "company": "The name of the company",
+    "created_date": "The date user was linked in BIM 360"
+}
+
+
+This call authenticates a user to the BIM 360 Glue Platform and returns an authentication token for use on subsequent service calls. This call is for normal auth_token sessions and not Service Provider API keys sessions.
+POST /api/security/v1/login.json
+> Content-Type: application/json
+< 200
+{
+  "auth_token": "9a9c689e94bd42a786c4f68102aa07d9",
+  "user_id": "057749b3-a472-4f63-a00e-9d4c17331cd3"
+}
+
+
+This call de-authenticates a user with a valid auth_token from the BIM 360 Glue Platform. Once this is performed, the company_id / api_key / auth_token combination will no longer authenticate the user. This call is for normal auth_token sessions and not Service Provider API keys sessions.
+POST /api/security/v1/logout.json
+> Content-Type: application/json
+< 200
+{
+  "auth_token_age": "number of minutes since login"
+}
+
+
+`Service Provider Access ONLY`
+
+This call allows a Service Provider application to perform an authentication operation for a specific user in the BIM 360 Glue system. This capability would allow for a custom developed application to authenticate a user from a trusted system without the need for BIM 360 Glue passwords being stored on the remote system. Once authenticated, the authentication token can be used on subsequent service calls by standard user accounts.
+POST /api/security/v1/proxylogin.json
+> Content-Type: application/json
+< 200
+{
+  "auth_token": "9a9c689e94bd42a786c4f68102aa07d9",
+  "user_id": "057749b3-a472-4f63-a00e-9d4c17331cd3"
+}
+
+
+`Service Provider Access ONLY`
+
+This call allows a Service Provider to de-authenticate a user's auth_token from the BIM 360 Glue Platform. Once this is performed, the company_id / api_key / auth_token combination will no longer authenticate the user.
+POST /api/security/v1/proxylogout.json
+> Content-Type: application/json
+< 200
+{
+  "auth_token_age": "number of minutes since login"
+}
+
+
+--
+Project Service
+This is used to manage the Projects within the BIM 360 Glue Platform.
+--
+
+--
+Model Service
+This is used to manage the 3D models within the BIM 360 Glue Platform.
+--
+
+--
+User Service
+This is used for the use and maintenance of BIM 360 Glue user information.
+--
+
+--
+Action Service
+This is used to access / manage user actions within the BIM 360 Glue Platform.
+--
+
+--
+System Service
+This is available to get information about the BIM 360 Glue Platform and check availability.
+--
+
+
+This call returns information about the BIM 360 Glue Web Services API developer key.
+GET /api/system/v1/apikey.json
+> Content-Type: application/json
+< 200
+{
+    "developer_id": "The Horizontal assigned developer ID",
+    "creation_ts": "The date the API account was created on the system",
+    "disabled": 0,
+    "company_id": "The company identifier for this account",
+    "company_name": "The company name for this account",
+    "address": "The physical mailing address for this account",
+    "description": "A description of the developer and their use of this account",
+    "url": "The Website URL for the developer",
+    "contact_email": "The contact email for the developer",
+    "contact_phone": "The contact phone for the developer",
+    "api_key": "The assigned API Key",
+    "service_provider_access": 0,
+    "api_lock_ip_addresses": "Is this account locked to specific IP addresses"
+}
+
+
+--
+Push Notifications Service
+This is available to access / manage device info of push notifications.
+--
+
+`Service Provider Access ONLY`
+
+This call returns information of a given device specified by the device id, device token, user id, environment_type or mobile_app_status.
+GET /api/push_notifications/v1/info.json
+> Content-Type: application/json
+< 200
+{
+    "device_list": [
+        {
+            "device_id": "This is the device identifier string for the device you wish to push notifications.",
+            "device_token": "This is the device token string for the device you wish to push notifications.",
+            "glue_user_id": "The Glue user identifier for this device",
+            "environment_type": "This is the device identifier type (sandbox/production) of iOS Push Notification service.",
+            "mobile_app_status": "This is the app satus [login (0)/logout (1)/uninstall (2)/invalid (3)].",
+            "last_registration": "The registeration (add or update) time in GMT/UTC."
+        },
+        {
+            "device_id": "This is the device identifier string for the device you wish to push notifications.",
+            "device_token": "This is the device token string for the device you wish to push notifications.",
+            "glue_user_id": "The Glue user identifier for this device",
+            "environment_type": "This is the device identifier type (sandbox/production) of iOS Push Notification service.",
+            "mobile_app_status": "This is the app satus [login (0)/logout (1)/uninstall (2)/invalid (3)].",
+            "last_registration": "The registeration (add or update) time in GMT/UTC."
+        }
+    ],
+    "page": 1,
+    "page_size": 2,
+    "total_result_size": 2,
+    "more_pages": 0
+}
+
+
+This call registers an iOS device token for a given user.
+POST /api/push_notifications/v1/ios_register.json
+> Content-Type: application/json
+< 200
+{
+    "device_id": "The device token record identifier you just registered.",
+    "update_time": "The registeration (add or update) time in GMT/UTC."
+}
+
+
+This call disables an iOS device for a given user. Then the server won't send iOS push notifications to the device.
+POST /api/push_notifications/v1/ios_invalid.json
+> Content-Type: application/json
+< 200
+{
+    "device_id":"The device token record identifier you just registered.",
+    "update_time":"The update time in GMT/UTC."
+}
+
+
+`Service Provider Access ONLY`
+
+This call sends an iOS push notification to a device for a given user.
+POST /api/push_notifications/v1/ios_send.json
+> Content-Type: application/json
+< 200
+{
+    "api_call_result": "The status (SUCCESS or FAIL) for invoking the API call."
+}
