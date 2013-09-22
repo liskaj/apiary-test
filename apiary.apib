@@ -143,6 +143,236 @@ Model Service
 This is used to manage the 3D models within the BIM 360 Glue Platform.
 --
 
+
+This call add a request for BIM 360 Glue to create a single aggregated model file of a BIM 360 Glue merged model.
+POST /api/model/v1/aggregate.json
+> Content-Type: application/json
+< 200
+{
+    "update_time": "The aggregation request time in GMT/UTC",
+    "model_id": "The model ID for the requested aggregated model",
+    "status": "The status of the aggregation request"
+}
+
+
+This call will get action id of all animations for the specified model file.
+GET /api/model/v1/animation.json
+> Content-Type: application/json
+< 200
+{
+    "project_id": "The Project identifier for this model",
+    "model_id": "The master identifier for the model",
+    "model_version_id": "The version identifier for this specific version of the model",
+    "model_name": "The name for the model",
+    "model_animations": [
+        {
+            "animation_id": "The identifier for the animation",
+            "action_id": "The action identifier used with the Display Component to play back the animation",
+            "created_by": "The login_name of the creator of the animation",
+            "creation_date": "The date the animation was created"
+        },
+        {
+            "animation_id": "The identifier for the animation",
+            "action_id": "The action identifier used with the Display Component to play back the animation",
+            "created_by": "The login_name of the creator of the animation",
+            "creation_date": "The date the animation was created"
+        }
+    ]
+}
+
+This call will download for the attachment of a Model file from the BIM 360 Glue server. If you perform a HEAD operation, you will only receive the header with the Content-Length set to the length of the attachment file.
+GET api/model/v1/attachment
+< 200
+
+
+HEAD api/model/v1/attachment
+< 200
+< Content-Length: 0
+
+
+This call gets the attachments of one particular model. If you specifcy the model version, you will only recieve the attachments of particular model version.If you don't specify the model version, you will recieve the attachments of all the versions of the models.
+GET /api/model/v1/attachments.json
+> Content-Type: application/json
+< 200
+{
+    "model_id": "The ID of the model",
+    "model_attachments": [
+        {
+            "model_id": "The model ID for the attachment",
+            "model_version_id": "The version ID of the model",
+            "attachment_id": "The ID for the attachment",
+            "attachment_name": "The name for the attachment",
+            "attachment_type": "The type of the attachment, file or url",
+            "attachment_version_id": "The version id of the attachment",
+            "attachment_version": "The version of the attachment",
+            "created_by": "The login_name of the creator of the attachment",
+            "created_date": "The attachment was added",
+            "modified_by": "The login_name of the last user to modify this version of the attachment",
+            "modified_date": "The attachment was modified",
+            "model_object_indices": "The path of the object for the attachment",
+            "model_object_name": "The name of the model object"
+        },
+        {
+            "model_id": "The model ID for the attachment",
+            "model_version_id": "The version ID of the model",
+            "attachment_id": "The ID for the attachment",
+            "attachment_name": "The name for the attachment",
+            "attachment_type": "The type of the attachment, file or url",
+            "attachment_version_id": "The version id of the attachment",
+            "attachment_version": "The version of the attachment",
+            "created_by": "The login_name of the creator of the attachment",
+            "created_date": "The attachment was added",
+            "modified_by": "The login_name of the last user to modify this version of the attachment",
+            "modified_date": "The attachment was modified",
+            "model_object_indices": "The path of the object for the attachment",
+            "model_object_name": "The name of the model object"
+        }
+    ]
+}
+
+
+This call will add a comment to a result from a clash test. Curently, there can only be a single comment for a result so this call will REPLACE any other comments currently stored for a result.
+POST /api/model/v1/clash_result_comment.json
+> Content-Type: application/json
+< 200
+{
+    "model_id": "The model for the comment",
+    "clash_test_result_id": "The clash test result identifier",
+    "update_time": "The comment time in GMT/UTC for the new comment",
+    "comment_id": "The ID for the newly created comment"
+}
+
+
+This call returns detailed clash result information for a specific clash test run.
+GET /api/model/v1/clash_test_results.json
+> Content-Type: application/json
+< 200
+{
+    "clash_test_version_id": "The identifier for the specific version of a clash test",
+    "model_id": "The ID for the model",
+    "model_name": "The name for the model",
+    "clash_results": [
+        {
+            "clash_test_result_id": "The identifier for the clash result",
+            "clash_test_version_id": "The identifier for the specific version of a clash test",
+            "item1": [
+                {
+                    "file_id": "The File ID",
+                    "path_id": "The path identifier"
+                },
+                {
+                    "file_id": "The File ID",
+                    "path_id": "The path identifier"
+                }
+            ],
+            "item2": [
+                {
+                    "file_id": "The File ID",
+                    "path_id": "The path identifier"
+                },
+                {
+                    "file_id": "The File ID",
+                    "path_id": "The path identifier"
+                }
+            ],
+            "magnitude": 0,
+            "comments": [
+                {
+                    "clash_test_comment_id": "The identifier for the clash comment",
+                    "clash_test_result_id": "The identifier for the clash result",
+                    "created_by": "login_name of the creator of the comment",
+                    "created_date": "Date comment was created",
+                    "comment": "The comment for the clash result"
+                },
+                {
+                    "clash_test_comment_id": "The identifier for the clash comment",
+                    "clash_test_result_id": "The identifier for the clash result",
+                    "created_by": "login_name of the creator of the comment",
+                    "created_date": "Date comment was created",
+                    "comment": "The comment for the clash result"
+                }
+            ]
+        },
+        {
+            "clash_test_result_id": "The identifier for the clash result",
+            "clash_test_version_id": "The identifier for the specific version of a clash test",
+            "item1": [
+                {
+                    "file_id": "The File ID",
+                    "path_id": "The path identifier"
+                },
+                {
+                    "file_id": "The File ID",
+                    "path_id": "The path identifier"
+                }
+            ],
+            "item2": [
+                {
+                    "file_id": "The File ID",
+                    "path_id": "The path identifier"
+                },
+                {
+                    "file_id": "The File ID",
+                    "path_id": "The path identifier"
+                }
+            ],
+            "magnitude": 0,
+            "comments": [
+                {
+                    "clash_test_comment_id": "The identifier for the clash comment",
+                    "clash_test_result_id": "The identifier for the clash result",
+                    "created_by": "login_name of the creator of the comment",
+                    "created_date": "Date comment was created",
+                    "comment": "The comment for the clash result"
+                },
+                {
+                    "clash_test_comment_id": "The identifier for the clash comment",
+                    "clash_test_result_id": "The identifier for the clash result",
+                    "created_by": "login_name of the creator of the comment",
+                    "created_date": "Date comment was created",
+                    "comment": "The comment for the clash result"
+                }
+            ]
+        }
+    ]
+}
+
+
+This call deletes a Model and all of its versions from the BIM 360 Glue Platform.
+POST /api/model/v1/delete.json
+> Content-Type: application/json
+< 200
+{
+    "update_time": "The deletion time in GMT/UTC",
+    "model_id": "The model ID of the deleted model"
+}
+
+
+This call returns a list of dependencies for a particular model.
+GET api/model/v1/dependencies.json
+> Content-Type: application/json
+< 200
+{
+    "dependency_list": [
+        {
+            "source_model_id": "The Glue Model ID that has this dependency",
+            "dependency_id": "The unique identifier for this dependency",
+            "dependency_name": "The name of the dependency in the model",
+            "glue_model_id": "The Glue Model ID to fulfill the dependency - NULL means the dependency has not been fulfilled"
+        },
+        {
+            "source_model_id": "The Glue Model ID that has this dependency",
+            "dependency_id": "The unique identifier for this dependency",
+            "dependency_name": "The name of the dependency in the model",
+            "glue_model_id": "The Glue Model ID to fulfill the dependency - NULL means the dependency has not been fulfilled"
+        }
+    ],
+    "root_model_id": "The Root Glue Model ID for this dependency graph",
+    "total_dependency_count": 2,
+    "missing_dependency_count": 2
+}
+
+
 --
 User Service
 This is used for the use and maintenance of BIM 360 Glue user information.
