@@ -28,16 +28,16 @@ POST /api/security/v1/activate.json
 
 This call disables a user from accessing a user account.
 ###Parameters
-- format : The format for the service call response
-- company_id: The company identifier for the BIM 360 Glue Platform
-- api_key: The API key assigned by Autodesk for the API developer
-- auth_token: The authentication token assigned to the user during the login process. `NOT REQUIRED FOR A SERVICE PROVIDER API KEY`
-- timestamp: The API key assigned by Autodesk for the API developer
-- sig: The MD5 generated hash of which insures the identity of the API developer. To build the signature, concatenate the following information (api_key + api_secret + timestamp) and then generate the MD5 hash for the string.
-- proxy_user_id: This is the user identifier string of the user account you wish to update. Either proxy_user_id or proxy_login_name must be valid to perform this operation.
-- proxy_login_name: This is the user login name for the user you wish to update. Either proxy_user_id or proxy_login_name must be valid to perform this operation.
-- pretty: Return the XML/JSON in a human readable format
-- no_http_status: If 1, then an HTTP Status code of 200 will be returned for ALL responses and any errors will be returned in the text/plain body on a single line in the format:
+- **format** : The format for the service call response
+- **company_id**: The company identifier for the BIM 360 Glue Platform
+- **api_key**: The API key assigned by Autodesk for the API developer
+- **auth_token**: The authentication token assigned to the user during the login process. `NOT REQUIRED FOR A SERVICE PROVIDER API KEY`
+- **timestamp**: The API key assigned by Autodesk for the API developer
+- **sig**: The MD5 generated hash of which insures the identity of the API developer. To build the signature, concatenate the following information (api_key + api_secret + timestamp) and then generate the MD5 hash for the string.
+- **proxy_user_id**: This is the user identifier string of the user account you wish to update. Either proxy_user_id or proxy_login_name must be valid to perform this operation.
+- **proxy_login_name**: This is the user login name for the user you wish to update. Either proxy_user_id or proxy_login_name must be valid to perform this operation.
+- **pretty**: Return the XML/JSON in a human readable format
+- **no_http_status**: If 1, then an HTTP Status code of 200 will be returned for ALL responses and any errors will be returned in the text/plain body on a single line in the format:
 ERROR;error_number;error_message.
 POST /api/security/v1/disable.json
 > Content-Type: application/json
@@ -179,6 +179,24 @@ GET /api/system/v1/apikey.json
     "api_lock_ip_addresses": "Is this account locked to specific IP addresses"
 }
 
+
+Return the current health of the BIM 360 Glue Service. You can return a simple response or a "detailed" response for this call. If there is total failure on the call (i.e. a non-200 HTTP code) then the assumption can be made that the service is in a BAD state.
+GET /api/system/v1/health.json
+> Content-Type: application/json
+< 200
+{
+    "service": "The name for the service: GLUE",
+    "version": "The version of the Glue Application",
+    "environment": "The operating environment: DEVELOPMENT, STAGING or PRODUCTION",
+    "detailed": "1/0: This indicates if the health report does the extended processing of the detailed argument",
+    "status": "GOOD: Health is Good / BAD: Health Problems",
+    "detailed_message": "This is a detailed message about the service status",
+    "timestamp": "The current GMT/UTC server time",
+    "db_status": "[ONLY RETURNED WITH detailed OPTION] Database Status: OK: Health is Good / FAIL: Health Problems",
+    "db_detailed_message": "[ONLY RETURNED WITH detailed OPTION] Database Status: This is a detailed message about the database service status",
+    "storage_status": "[ONLY RETURNED WITH detailed OPTION] Storage Status: OK: Health is Good / FAIL: Health Problems",
+    "storage_detailed_message": "[ONLY RETURNED WITH detailed OPTION] Storage Status: This is a detailed message about the service status"
+}
 
 --
 Push Notifications Service
