@@ -373,6 +373,411 @@ GET api/model/v1/dependencies.json
 }
 
 
+This call will download the Model file from the BIM 360 Glue server. If you perform a HEAD operation, you will only receive the header with the Content-Length set to the length of the model file. Also, byte range header specifications are also supported on this call specifically in the form: bytes=XXX-YYY
+GET /api/model/v1/download
+< 200
+
+HEAD /api/model/v1/download
+< 200
+< Content-Length: 0
+
+This call returns information of a given Model specified by the model_id.
+GET /api/model/v1/info.json
+> Content-Type: application/json
+< 200
+{
+	"version_history": [
+		{
+			"model_version": 2,
+			"model_id": "The master identifier for this model ID",
+			"action_id": "For Views: The action identifier used with the Display Component to view this Model",
+			"model_version_id": "The ID for this particular version of the model",
+			"created_by": "login_name of the creator of the model",
+			"created_date": "Date model was created",
+			"modified_by": "The login_name of the last user to modify this version of the model",
+			"published": 0
+		},
+		{
+			"model_version": 2,
+			"model_id": "The master identifier for this model ID",
+			"action_id": "For Views: The action identifier used with the Display Component to view this Model",
+			"model_version_id": "The ID for this particular version of the model",
+			"created_by": "login_name of the creator of the model",
+			"created_date": "Date model was created",
+			"modified_by": "The login_name of the last user to modify this version of the model",
+			"published": 0
+		}
+	],
+	"action_id": "The action identifier used with the Display Component to view this Model",
+	"company_id": "The company identifier for this model",
+	"project_id": "The Project identifier for this model",
+	"model_id": "The master identifier for the model",
+	"model_version": 1,
+	"model_version_id": "The version identifier for this specific version of the model",
+	"model_name": "The name for the model",
+	"created_by": "The login_name of the creator of the model",
+	"created_date": "The date the model was created",
+	"modified_by": "The login_name of the last user to modify the model",
+	"modified_date": "Date of last modification",
+	"parent_folder_id": "The parent folder for the model",
+	"file_parsed_status": 1,
+	"is_merged_model": 1,
+	"merged_model_available": 0,
+	"merged_model_aggregation_status": "If this is a merged model and it is NOT available (merged_model_available=0) then this field indicates the status the model aggregation. The field values are: NOT_QUEUED - the model has NOT been queued for aggregation, WAITING - the model is in queue for aggregation, but has not started processing, PROCESSING=XX - the model is being aggregated, and is XX percent complete, FAILED - the model aggregation failed, READY - the model aggregation is complete and ready for consumption",
+	"merged_submodels": [
+		{
+			"type": "Type of node: FOLDER or MODEL",
+			"name": "The name of the object",
+			"object_id": "The BIM 360 Glue ID for the object",
+			"action_id": "For Models: The action identifier used with the Display Component to view this Model",
+			"version_id": "The version ID for the object (applies to Models)",
+			"version": 1,
+			"created_by": "The login_name of the person creating the object",
+			"created_date": "The date the object was created",
+			"parent_folder_id": "The parent folder ID",
+			"is_merged_model": 0,
+			"merged_model_available": 0,
+			"merged_model_aggregation_status": "If this is a merged model and it is NOT available (merged_model_available=0) then this field indicates the status the model aggregation. The field values are: NOT_QUEUED - the model has NOT been queued for aggregation, WAITING - the model is in queue for aggregation, but has not started processing, PROCESSING=XX - the model is being aggregated, and is XX percent complete, FAILED - the model aggregation failed, READY - the model aggregation is complete and ready for consumption If a model is NOT available (merged_model_available=0) then this field indicates the status the model aggregation. The field values are: NOT_QUEUED - the model has NOT been queued for aggregation, WAITING - the model is in queue for aggregation, but has not started processing, PROCESSING=XX - the model is being aggregated, and is XX percent complete, FAILED - the model aggregation failed, READY - the model aggregation is complete and ready for consumption",
+			"folder_contents": [
+				{
+					"type": "Type of node: FOLDER or MODEL",
+					"name": "The name of the object",
+					"object_id": "The BIM 360 Glue ID for the object",
+					"action_id": "",
+					"version_id": "The version identifier for the object/model",
+					"version": 0,
+					"created_by": null,
+					"created_date": "The date the object was created",
+					"parent_folder_id": "The parent folder ID",
+					"is_merged_model": 0,
+					"merged_model_available": 0,
+					"merged_model_aggregation_status": "If this is a merged model and it is NOT available (merged_model_available=0) then this field indicates the status the model aggregation. The field values are: NOT_QUEUED - the model has NOT been queued for aggregation, WAITING - the model is in queue for aggregation, but has not started processing, PROCESSING=XX - the model is being aggregated, and is XX percent complete, FAILED - the model aggregation failed, READY - the model aggregation is complete and ready for consumption",
+					"folder_contents": null,
+					"merged_submodels": null
+				}
+			],
+			"merged_submodels": null
+		}
+	],
+	"clash_reports": [
+		{
+			"clash_report_id": "The identifier for the clash report",
+			"action_id": "The action identifier used with the Display Component to view this particular Clash Report",
+			"name": "The name for the clash report",
+			"project_id": "The Project Identifier for this clash report",
+			"model_id": "The master Model Identifier",
+			"model_version_id": "The version identifier for Model that has this clash report is referencing",
+			"model_version": 1,
+			"model_name": "The name of the Model",
+			"created_by": "login_name of the creator of the report",
+			"created_date": "Date report was created",
+			"modified_by": "The login_name of the last user to modify the report",
+			"modified_date": "Date of last modification",
+			"comments": "Comments for the clash report"
+		},
+		{
+			"clash_report_id": "The identifier for the clash report",
+			"action_id": "The action identifier used with the Display Component to view this particular Clash Report",
+			"name": "The name for the clash report",
+			"project_id": "The Project Identifier for this clash report",
+			"model_id": "The master Model Identifier",
+			"model_version_id": "The version identifier for Model that has this clash report is referencing",
+			"model_version": 1,
+			"model_name": "The name of the Model",
+			"created_by": "login_name of the creator of the report",
+			"created_date": "Date report was created",
+			"modified_by": "The login_name of the last user to modify the report",
+			"modified_date": "Date of last modification",
+			"comments": "Comments for the clash report"
+		}
+	],
+	"view_tree": [
+		{
+			"view_info": {
+				"camera_pos_x": "Camera Position X Coordinate",
+				"camera_pos_y": "Camera Position Y Coordinate",
+				"camera_pos_z": "Camera Position Z Coordinate",
+				"target_pos_x": "Target Position X Coordinate",
+				"target_pos_y": "Target Position Y Coordinate",
+				"target_pos_z": "Target Position Z Coordinate",
+				"up_vector_x": "Up Vector X Coordinate",
+				"up_vector_y": "Up Vector Y Coordinate",
+				"up_vector_z": "Up Vector Z Coordinate",
+				"fov_width": "Field of View Width",
+				"fov_height": "Field of View Height",
+				"camera_view_mode": "Camera view mode: perspective, orthographic",
+				"navigation_mode": "Navigation Mode: relativeorbit, hopcamerapan, hopcamerawalk, look"
+			},
+			"markups": [
+				{
+					"markup_id": "The identifier for Markup",
+					"action_id": "The action identifier used with the Display Component to view this Markup",
+					"view_id": "The view identifier that this Markup is associated with",
+					"name": "The name for the Markup",
+					"project_id": "The Project Identifier for this Markup",
+					"model_id": "The master Model Identifier",
+					"model_version_id": "The version identifier for Model that has this Markup is referencing",
+					"model_version": 1,
+					"created_by": "login_name of the creator of the markup",
+					"created_date": "Date markup was created",
+					"modified_by": "The login_name of the last user to modify the markup",
+					"modified_date": "Date of last modification",
+					"group_id": "The group identifier for this Markup"
+				}
+			],
+			"folder_contents": [
+				{
+					"view_info": null,
+					"markups": null,
+					"folder_contents": null,
+					"type": "Type of node: VIEW, FOLDER",
+					"name": "The name of the object",
+					"object_id": "The BIM 360 Glue ID for the object",
+					"action_id": "",
+					"project_id": null,
+					"model_id": null,
+					"model_version_id": "The version identifier for the object",
+					"model_version": 0,
+					"created_by": null,
+					"created_date": "The date the object was created",
+					"modified_by": null,
+					"modified_date": null,
+					"global": null,
+					"parent_folder_id": "The parent folder ID",
+					"selection_set": null,
+					"hidden_set": null,
+					"transparent_set": null,
+					"color_object_set": null
+				}
+			],
+			"type": "Type of node: VIEW, FOLDER",
+			"name": "The name for the View/Folder",
+			"object_id": "The identifier for the VIEW, FOLDER",
+			"action_id": "For Views: The action identifier used with the Display Component to view this View",
+			"project_id": "The Project Identifier for this view",
+			"model_id": "The master Model Identifier",
+			"model_version_id": "The version identifier for Model that has this view is referencing",
+			"model_version": 1,
+			"created_by": "login_name of the creator of the object",
+			"created_date": "Date object was created",
+			"modified_by": "The login_name of the last user to modify the object",
+			"modified_date": "Date of last modification",
+			"global": "1 or 0: A view can either be global (visible to everyone in the project) or private (visible to only yourself)",
+			"parent_folder_id": "The parent folder ID",
+			"selection_set": {
+				"selected_objects": [
+					{
+						"model_id": "The model ID",
+						"path_id": "The path identifier"
+					},
+					{
+						"model_id": "The model ID",
+						"path_id": "The path identifier"
+					}
+				]
+			},
+			"hidden_set": {
+				"hidden_objects": [
+					{
+						"model_id": "The model ID",
+						"path_id": "The path identifier"
+					},
+					{
+						"model_id": "The model ID",
+						"path_id": "The path identifier"
+					}
+				]
+			},
+			"transparent_set": {
+				"transparent_objects": [
+					{
+						"model_id": "The model ID",
+						"path_id": "The path identifier"
+					},
+					{
+						"model_id": "The model ID",
+						"path_id": "The path identifier"
+					}
+				],
+				"isolated_objects": [
+					{
+						"model_id": "The model ID",
+						"path_id": "The path identifier"
+					},
+					{
+						"model_id": "The model ID",
+						"path_id": "The path identifier"
+					}
+				]
+			},
+			"color_object_set": {
+				"color_objects": [
+					{
+						"model_path_id": {
+							"model_id": "The model ID",
+							"path_id": "The path identifier"
+						},
+						"red": 0,
+						"green": 0,
+						"blue": 0
+					},
+					{
+						"model_path_id": {
+							"model_id": "The model ID",
+							"path_id": "The path identifier"
+						},
+						"red": 0,
+						"green": 0,
+						"blue": 0
+					}
+				]
+			}
+		},
+		{
+			"view_info": {
+				"camera_pos_x": "Camera Position X Coordinate",
+				"camera_pos_y": "Camera Position Y Coordinate",
+				"camera_pos_z": "Camera Position Z Coordinate",
+				"target_pos_x": "Target Position X Coordinate",
+				"target_pos_y": "Target Position Y Coordinate",
+				"target_pos_z": "Target Position Z Coordinate",
+				"up_vector_x": "Up Vector X Coordinate",
+				"up_vector_y": "Up Vector Y Coordinate",
+				"up_vector_z": "Up Vector Z Coordinate",
+				"fov_width": "Field of View Width",
+				"fov_height": "Field of View Height",
+				"camera_view_mode": "Camera view mode: perspective, orthographic",
+				"navigation_mode": "Navigation Mode: relativeorbit, hopcamerapan, hopcamerawalk, look"
+			},
+			"markups": [
+				{
+					"markup_id": "The identifier for Markup",
+					"action_id": "The action identifier used with the Display Component to view this Markup",
+					"view_id": "The view identifier that this Markup is associated with",
+					"name": "The name for the Markup",
+					"project_id": "The Project Identifier for this Markup",
+					"model_id": "The master Model Identifier",
+					"model_version_id": "The version identifier for Model that has this Markup is referencing",
+					"model_version": 1,
+					"created_by": "login_name of the creator of the markup",
+					"created_date": "Date markup was created",
+					"modified_by": "The login_name of the last user to modify the markup",
+					"modified_date": "Date of last modification",
+					"group_id": "The group identifier for this Markup"
+				}
+			],
+			"folder_contents": [
+				{
+					"view_info": null,
+					"markups": null,
+					"folder_contents": null,
+					"type": "Type of node: VIEW, FOLDER",
+					"name": "The name of the object",
+					"object_id": "The BIM 360 Glue ID for the object",
+					"action_id": "",
+					"project_id": null,
+					"model_id": null,
+					"model_version_id": "The version identifier for the object",
+					"model_version": 0,
+					"created_by": null,
+					"created_date": "The date the object was created",
+					"modified_by": null,
+					"modified_date": null,
+					"global": null,
+					"parent_folder_id": "The parent folder ID",
+					"selection_set": null,
+					"hidden_set": null,
+					"transparent_set": null,
+					"color_object_set": null
+				}
+			],
+			"type": "Type of node: VIEW, FOLDER",
+			"name": "The name for the View/Folder",
+			"object_id": "The identifier for the VIEW, FOLDER",
+			"action_id": "For Views: The action identifier used with the Display Component to view this View",
+			"project_id": "The Project Identifier for this view",
+			"model_id": "The master Model Identifier",
+			"model_version_id": "The version identifier for Model that has this view is referencing",
+			"model_version": 1,
+			"created_by": "login_name of the creator of the object",
+			"created_date": "Date object was created",
+			"modified_by": "The login_name of the last user to modify the object",
+			"modified_date": "Date of last modification",
+			"global": "1 or 0: A view can either be global (visible to everyone in the project) or private (visible to only yourself)",
+			"parent_folder_id": "The parent folder ID",
+			"selection_set": {
+				"selected_objects": [
+					{
+						"model_id": "The model ID",
+						"path_id": "The path identifier"
+					},
+					{
+						"model_id": "The model ID",
+						"path_id": "The path identifier"
+					}
+				]
+			},
+			"hidden_set": {
+				"hidden_objects": [
+					{
+						"model_id": "The model ID",
+						"path_id": "The path identifier"
+					},
+					{
+						"model_id": "The model ID",
+						"path_id": "The path identifier"
+					}
+				]
+			},
+			"transparent_set": {
+				"transparent_objects": [
+					{
+						"model_id": "The model ID",
+						"path_id": "The path identifier"
+					},
+					{
+						"model_id": "The model ID",
+						"path_id": "The path identifier"
+					}
+				],
+				"isolated_objects": [
+					{
+						"model_id": "The model ID",
+						"path_id": "The path identifier"
+					},
+					{
+						"model_id": "The model ID",
+						"path_id": "The path identifier"
+					}
+				]
+			},
+			"color_object_set": {
+				"color_objects": [
+					{
+						"model_path_id": {
+							"model_id": "The model ID",
+							"path_id": "The path identifier"
+						},
+						"red": 0,
+						"green": 0,
+						"blue": 0
+					},
+					{
+						"model_path_id": {
+							"model_id": "The model ID",
+							"path_id": "The path identifier"
+						},
+						"red": 0,
+						"green": 0,
+						"blue": 0
+					}
+				]
+			}
+		}
+	]
+}
+
+
 --
 User Service
 This is used for the use and maintenance of BIM 360 Glue user information.
