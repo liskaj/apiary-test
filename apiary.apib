@@ -198,6 +198,19 @@ GET /api/system/v1/health.json
     "storage_detailed_message": "[ONLY RETURNED WITH detailed OPTION] Storage Status: This is a detailed message about the service status"
 }
 
+
+Return the current state of the BIM 360 Glue Platform. This can be used to test for the health of the system (i.e. ping).
+GET /api/system/v1/status.json
+> Content-Type: application/json
+< 200
+{
+    "http_status": 200,
+    "server_time": "The current GMT/UTC server time",
+    "system_message": "System Update: (e.g. A TWO HOUR Maintenance window will occur: 2013-09-29 12:20 - 2013-09-29 14:20)",
+    "glue_platform": "The Glue Platform Version: GLUE1 - HOOPS Based Glue / GLUE2 - Navisworks Based Glue"
+}
+
+
 --
 Push Notifications Service
 This is available to access / manage device info of push notifications.
