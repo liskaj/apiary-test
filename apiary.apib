@@ -1,0 +1,32 @@
+HOST: http://demo.autodesk.com
+
+--- Test API ---
+---
+This is my test API.
+---
+
+--
+Common Resources
+--
+
+This cal returns all cars from catalog
+GET /api/cars
+> Content-Type: application/json
+< 200
+{
+    cars:
+	[
+        {
+            "car" :
+			{
+                "id": "1",
+                "description": "Skoda Citigo Active 1.0 MPI 44 kW automatic"
+            },
+            "car" :
+			{
+                "id": "2",
+                "description": "Skoda Citigo Active 1.0 MPI 44 kW manual"
+            }
+        }
+    ]
+}
